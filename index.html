@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vilela Advogados — Direito Previdenciário</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --black:      #000000;
+      --white:      #FFFFFF;
+      --gold:       #F9B419;
+      --gray-dark:  #323232;
+      --gray-mid:   #8C8C8C;
+      --gray-light: #E6E6E6;
+      --gray-bg:    #F5F5F5;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--white);
+      color: var(--gray-dark);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .section { padding: 108px 80px; }
+    .container { max-width: 1280px; margin: 0 auto; }
+
+    .label-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      padding: 16px 40px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .btn-gold  { background: var(--gold);  color: var(--black); }
+    .btn-black { background: var(--black); color: var(--white); }
+
+    /* Scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+
+    /* ─────────────────────────────────────────
+       LOGO
+    ───────────────────────────────────────── */
+    .logo { display: inline-flex; flex-direction: column; line-height: 1; gap: 3px; }
+    .logo-vilela {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .logo-advogados {
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+    }
+    .logo-a { color: var(--gold); }
+
+
+    /* ─────────────────────────────────────────
+       SECTION 1 — HERO
+    ───────────────────────────────────────── */
+    #hero {
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Ruled-lines: remetem a formulários do INSS */
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(
+          180deg,
+          transparent,
+          transparent 47px,
+          rgba(255,255,255,0.028) 47px,
+          rgba(255,255,255,0.028) 48px
+        );
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* Símbolo § como marca d'água institucional */
+    #hero::after {
+      content: '§';
+      position: absolute;
+      right: -60px;
+      bottom: -100px;
+      font-size: 680px;
+      font-weight: 800;
+      font-family: 'Montserrat', sans-serif;
+      color: rgba(249,180,25,0.032);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      z-index: 0;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    /* Glow dourado atrás do headline */
+    .hero-glow {
+      position: absolute;
+      width: 640px;
+      height: 640px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249,180,25,0.07) 0%, transparent 68%);
+      top: 42%;
+      left: 18%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-nav {
+      padding: 32px 80px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: relative;
+      z-index: 1;
+    }
+    .hero-nav .logo-vilela { color: var(--white); }
+    .hero-nav .logo-advogados { color: var(--gray-mid); }
+
+    .hero-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 72px;
+      padding: 80px 80px 100px;
+      max-width: 1440px;
+      margin: 0 auto;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text { flex: 1; }
+
+    .hero-headline {
+      font-size: 60px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.07;
+      letter-spacing: -0.025em;
+      margin-bottom: 24px;
+    }
+
+    .hero-sub {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--gray-light);
+      line-height: 1.7;
+      max-width: 500px;
+    }
+
+    .hero-form-wrap { flex: 0 0 420px; }
+
+    .hero-form {
+      background: #0f0f0f;
+      border: 1px solid #2a2a2a;
+      border-radius: 8px;
+      padding: 36px 32px;
+    }
+
+    .form-heading {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--white);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 28px;
+    }
+
+    .field { margin-bottom: 16px; }
+    .field label {
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gray-mid);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .field input {
+      width: 100%;
+      background: transparent;
+      border: 1px solid #2e2e2e;
+      border-radius: 6px;
+      padding: 13px 15px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      color: var(--white);
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .field input::placeholder { color: #444; }
+    .field input:focus { border-color: var(--gold); }
+
+    .form-cta {
+      width: 100%;
+      margin-top: 24px;
+      padding: 17px;
+      font-size: 12px;
+    }
+
+    .form-micro {
+      text-align: center;
+      font-size: 11px;
+      color: var(--gray-mid);
+      margin-top: 12px;
+    }
+
+
+    /* ─────────────────────────────────────────
+       SECTION 2 — DOR
+    ───────────────────────────────────────── */
+    #dor { background: var(--white); }
+
+    .section-h2 {
+      font-size: 36px;
+      font-weight: 800;
+      line-height: 1.14;
+      letter-spacing: -0.015em;
+      margin-bottom: 48px;
+    }
+
+    .dor-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .dor-card {
+      background: #F8F8F8;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 28px 24px 28px 24px;
+      transition: transform 0.2s;
+    }
+    .dor-card:hover { transform: translateX(3px); }
+
+    .dor-icon { font-size: 22px; margin-bottom: 14px; display: block; }
+
+    .dor-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 10px;
+      line-height: 1.35;
+    }
+
+    .dor-text {
+      font-size: 14px;
+      color: var(--gray-dark);
+      line-height: 1.7;
+    }
+
+
+    /* ─────────────────────────────────────────
+       SECTION 3 — ÁREAS
+    ───────────────────────────────────────── */
+    #areas { background: var(--gray-bg); }
+
+    .areas-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+
+    .area-item {
+      background: var(--white);
+      border-radius: 8px;
+      padding: 22px 26px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+      transition: box-shadow 0.2s;
+    }
+    .area-item:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+
+    .area-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+    .area-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 5px;
+    }
+
+    .area-desc {
+      font-size: 13px;
+      color: var(--gray-mid);
+      line-height: 1.6;
+    }
+
+
+    /* ─────────────────────────────────────────
+       SECTION 4 — DIFERENCIAIS
+    ───────────────────────────────────────── */
+    #diferenciais {
+      background: var(--black);
+      padding: 0;
+    }
+
+    .dif-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .dif-visual {
+      background: #0a0a0a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 580px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dif-visual::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 38px,
+        rgba(249,180,25,0.025) 38px,
+        rgba(249,180,25,0.025) 39px
+      );
+    }
+
+    .dif-visual-inner {
+      position: relative;
+      text-align: center;
+      padding: 48px;
+    }
+
+    .dif-monogram {
+      font-size: 140px;
+      font-weight: 800;
+      color: rgba(249,180,25,0.05);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      display: block;
+      user-select: none;
+    }
+
+    .dif-monogram-sub {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.15);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-top: -16px;
+      display: block;
+    }
+
+    .dif-text {
+      padding: 80px 72px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .dif-text .section-h2 { color: var(--white); max-width: 380px; }
+
+    .dif-desc {
+      font-size: 16px;
+      font-weight: 400;
+      color: #c8c8c8;
+      line-height: 1.72;
+      max-width: 380px;
+      margin-bottom: 36px;
+    }
+
+    .checks { list-style: none; display: flex; flex-direction: column; gap: 15px; }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .check-tick {
+      color: var(--gold);
+      font-size: 17px;
+      font-weight: 800;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .check-label {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--white);
+    }
+
+
+    /* ─────────────────────────────────────────
+       SECTION 5 — PROVA SOCIAL
+    ───────────────────────────────────────── */
+    #prova { background: var(--white); }
+
+    .prova-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .stars {
+      display: flex;
+      gap: 5px;
+      font-size: 26px;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .prova-copy {
+      font-size: 17px;
+      color: var(--gray-dark);
+      line-height: 1.72;
+      max-width: 440px;
+    }
+
+    .prova-score { text-align: center; }
+
+    .score-number {
+      font-size: 100px;
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .score-source {
+      font-size: 13px;
+      color: var(--gray-mid);
+      margin-top: 10px;
+      letter-spacing: 0.04em;
+    }
+
+    .oab-note {
+      margin-top: 52px;
+      padding-top: 28px;
+      border-top: 1px solid var(--gray-light);
+      font-size: 11px;
+      color: var(--gray-mid);
+      line-height: 1.75;
+    }
+
+
+    /* ─────────────────────────────────────────
+       SECTION 6 — CTA MÉDIO
+    ───────────────────────────────────────── */
+    #cta-medio {
+      background: var(--gold);
+      text-align: center;
+    }
+
+    .ctam-title {
+      font-size: 44px;
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 20px;
+    }
+
+    .ctam-sub {
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--gray-dark);
+      line-height: 1.65;
+      margin-bottom: 40px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+
+    /* ─────────────────────────────────────────
+       SECTION 7 — SOBRE
+    ───────────────────────────────────────── */
+    #sobre { background: var(--gray-bg); }
+
+    .sobre-wrap { max-width: 700px; }
+
+    .sobre-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      margin-bottom: 32px;
+    }
+
+    .sobre-paras { display: flex; flex-direction: column; gap: 18px; }
+
+    .sobre-p {
+      font-size: 16px;
+      color: var(--gray-dark);
+      line-height: 1.78;
+    }
+
+    .oab-block {
+      margin-top: 40px;
+      padding-top: 28px;
+      border-top: 1px solid #ddd;
+    }
+
+    .oab-item {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--gray-mid);
+      line-height: 2;
+    }
+
+
+    /* ─────────────────────────────────────────
+       SECTION 8 — FOOTER
+    ───────────────────────────────────────── */
+    #footer {
+      background: var(--black);
+      padding: 88px 80px 52px;
+      text-align: center;
+    }
+
+    .footer-logo { margin-bottom: 36px; }
+    .footer-logo .logo-vilela { color: var(--white); }
+    .footer-logo .logo-advogados { color: var(--gray-mid); }
+
+    .footer-headline {
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+      margin-bottom: 32px;
+    }
+
+    .footer-hr {
+      border: none;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      margin: 48px 0 28px;
+    }
+
+    .footer-oab { margin-bottom: 20px; }
+    .footer-oab-item {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--gray-mid);
+      line-height: 2;
+      display: block;
+    }
+
+    .footer-copy {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(140,140,140,0.5);
+    }
+
+
+    /* ─────────────────────────────────────────
+       RESPONSIVE — MOBILE 390px
+    ───────────────────────────────────────── */
+    @media (max-width: 768px) {
+      .section { padding: 64px 20px; }
+
+      .hero-nav { padding: 24px 20px; }
+      .hero-body { flex-direction: column; padding: 48px 20px 64px; gap: 44px; }
+      .hero-headline { font-size: 36px; }
+      .hero-sub { font-size: 16px; }
+      .hero-form-wrap { width: 100%; }
+      .hero-form { padding: 24px 20px; }
+
+      .section-h2 { font-size: 28px; }
+
+      .dor-grid { grid-template-columns: 1fr; gap: 14px; }
+      .areas-grid { grid-template-columns: 1fr; }
+
+      .dif-inner { grid-template-columns: 1fr; }
+      .dif-visual { display: none; }
+      .dif-text { padding: 64px 20px; }
+
+      .prova-grid { grid-template-columns: 1fr; gap: 36px; }
+      .score-number { font-size: 72px; }
+
+      .ctam-title { font-size: 30px; }
+
+      .sobre-title { font-size: 28px; }
+
+      #footer { padding: 64px 20px 40px; }
+      .footer-headline { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════
+       SEÇÃO 1 — HERO
+  ══════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-glow"></div>
+    <nav class="hero-nav">
+      <div class="logo">
+        <span class="logo-vilela">VILE<span class="logo-a">L</span>A</span>
+        <span class="logo-advogados">Advogados</span>
+      </div>
+    </nav>
+
+    <div class="hero-body">
+      <div class="hero-text">
+        <span class="label-tag">Direito Previdenciário</span>
+        <h1 class="hero-headline">
+          Você conhece todos<br>
+          os seus direitos<br>
+          perante o INSS?
+        </h1>
+        <p class="hero-sub">
+          Benefícios negados, aposentadorias mal calculadas, auxílios encerrados indevidamente — muitas situações têm solução jurídica que a maioria desconhece.
+        </p>
+      </div>
+
+      <div class="hero-form-wrap">
+        <div class="hero-form">
+          <p class="form-heading">Análise gratuita do seu caso</p>
+          <form>
+            <div class="field">
+              <label for="nome">Nome completo</label>
+              <input type="text" id="nome" placeholder="Seu nome completo">
+            </div>
+            <div class="field">
+              <label for="whatsapp">WhatsApp</label>
+              <input type="tel" id="whatsapp" placeholder="(00) 00000-0000">
+            </div>
+            <div class="field">
+              <label for="email">E-mail</label>
+              <input type="email" id="email" placeholder="seu@email.com">
+            </div>
+            <button type="submit" class="btn btn-gold form-cta">Solicitar análise do meu caso</button>
+          </form>
+          <p class="form-micro">Consulta inicial sem compromisso.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SEÇÃO 2 — DOR
+  ══════════════════════════════════════ -->
+  <section id="dor" class="section">
+    <div class="container">
+      <span class="label-tag reveal">Situações comuns</span>
+      <h2 class="section-h2 reveal">
+        Muitas situações têm<br>solução jurídica que<br>a maioria desconhece
+      </h2>
+
+      <div class="dor-grid">
+        <div class="dor-card reveal">
+          <span class="dor-icon">📄</span>
+          <h3 class="dor-title">Benefício negado ou cancelado</h3>
+          <p class="dor-text">O INSS indeferiu ou cessou um auxílio, mas a decisão pode ser contestada por recurso ou ação judicial — e existem prazos a observar.</p>
+        </div>
+        <div class="dor-card reveal">
+          <span class="dor-icon">🏥</span>
+          <h3 class="dor-title">Alta médica com sequela funcional</h3>
+          <p class="dor-text">Recebeu alta do afastamento, mas ainda convive com limitações físicas no trabalho? Pode existir um benefício permanente nessa situação.</p>
+        </div>
+        <div class="dor-card reveal">
+          <span class="dor-icon">🧮</span>
+          <h3 class="dor-title">Aposentadoria ou benefício mal calculado</h3>
+          <p class="dor-text">O INSS pode cometer erros de cálculo. A revisão do benefício tem prazo legal e pode resultar em correção do valor recebido.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SEÇÃO 3 — ÁREAS DE ATUAÇÃO
+  ══════════════════════════════════════ -->
+  <section id="areas" class="section">
+    <div class="container">
+      <span class="label-tag reveal">Atuação em Previdenciário</span>
+      <h2 class="section-h2 reveal">
+        Áreas de atuação<br>do escritório
+      </h2>
+
+      <div class="areas-grid">
+        <div class="area-item reveal">
+          <span class="area-icon">⚖️</span>
+          <div>
+            <p class="area-name">BPC / LOAS</p>
+            <p class="area-desc">Benefício para pessoas com deficiência e idosos em situação de vulnerabilidade socioeconômica.</p>
+          </div>
+        </div>
+        <div class="area-item reveal">
+          <span class="area-icon">🏥</span>
+          <div>
+            <p class="area-name">Auxílio-Doença e Incapacidade</p>
+            <p class="area-desc">Afastamento por doença ou acidente, concessão e recurso em caso de negativa do INSS.</p>
+          </div>
+        </div>
+        <div class="area-item reveal">
+          <span class="area-icon">📋</span>
+          <div>
+            <p class="area-name">Aposentadoria por Contribuição ou Especial</p>
+            <p class="area-desc">Planejamento e requerimento da aposentadoria na modalidade mais vantajosa para cada caso.</p>
+          </div>
+        </div>
+        <div class="area-item reveal">
+          <span class="area-icon">🔄</span>
+          <div>
+            <p class="area-name">Revisão de Benefício</p>
+            <p class="area-desc">Análise e questionamento de benefícios com valores inferiores ao devido por lei.</p>
+          </div>
+        </div>
+        <div class="area-item reveal">
+          <span class="area-icon">🤝</span>
+          <div>
+            <p class="area-name">Pensão por Morte</p>
+            <p class="area-desc">Orientação para dependentes sobre direitos decorrentes do falecimento do segurado.</p>
+          </div>
+        </div>
+        <div class="area-item reveal">
+          <span class="area-icon">📌</span>
+          <div>
+            <p class="area-name">Auxílio-Acidente</p>
+            <p class="area-desc">Benefício permanente para trabalhadores com redução funcional após acidente, mesmo que em atividade.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SEÇÃO 4 — DIFERENCIAIS
+  ══════════════════════════════════════ -->
+  <section id="diferenciais">
+    <div class="dif-inner">
+      <div class="dif-visual">
+        <div class="dif-visual-inner">
+          <span class="dif-monogram">VA</span>
+          <span class="dif-monogram-sub">Vilela Advogados</span>
+        </div>
+      </div>
+
+      <div class="dif-text">
+        <span class="label-tag reveal">O Escritório</span>
+        <h2 class="section-h2 reveal">
+          Técnica jurídica e<br>atendimento humano
+        </h2>
+        <p class="dif-desc reveal">
+          O Vilela Advogados atua com foco na clareza: explicamos cada etapa do processo de forma acessível, sem jargões desnecessários.
+        </p>
+        <ul class="checks">
+          <li class="check reveal"><span class="check-tick">✓</span><span class="check-label">Mais de 10 anos de experiência jurídica</span></li>
+          <li class="check reveal"><span class="check-tick">✓</span><span class="check-label">Atendimento individualizado em cada caso</span></li>
+          <li class="check reveal"><span class="check-tick">✓</span><span class="check-label">Linguagem clara e acessível</span></li>
+          <li class="check reveal"><span class="check-tick">✓</span><span class="check-label">Atuação em todo o território nacional</span></li>
+          <li class="check reveal"><span class="check-tick">✓</span><span class="check-label">Livros publicados na área de atuação</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SEÇÃO 5 — PROVA SOCIAL
+  ══════════════════════════════════════ -->
+  <section id="prova" class="section">
+    <div class="container">
+      <div class="prova-grid">
+        <div>
+          <span class="label-tag reveal">Reputação</span>
+          <h2 class="section-h2 reveal">
+            Avaliado com<br>5 estrelas no Google
+          </h2>
+          <div class="stars reveal">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <p class="prova-copy reveal">
+            Nossa reputação é construída pelo atendimento e pelo compromisso com cada caso que chega ao escritório.
+          </p>
+        </div>
+        <div class="prova-score reveal">
+          <div class="score-number">5.0</div>
+          <div class="score-source">Google Meu Negócio</div>
+        </div>
+      </div>
+
+      <div class="oab-note reveal">
+        Em atenção às normas do Código de Ética e Disciplina da OAB, não veiculamos depoimentos individuais de clientes.
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SEÇÃO 6 — CTA INTERMEDIÁRIO
+  ══════════════════════════════════════ -->
+  <section id="cta-medio" class="section">
+    <div class="container">
+      <h2 class="ctam-title reveal">
+        Tem dúvidas sobre<br>um benefício do INSS?
+      </h2>
+      <p class="ctam-sub reveal">
+        Fale com um advogado especializado em Direito Previdenciário e verifique as opções disponíveis para o seu caso.
+      </p>
+      <a href="#hero" class="btn btn-black reveal">Falar com o escritório</a>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SEÇÃO 7 — SOBRE
+  ══════════════════════════════════════ -->
+  <section id="sobre" class="section">
+    <div class="container">
+      <div class="sobre-wrap">
+        <span class="label-tag reveal">Sobre nós</span>
+        <h2 class="sobre-title reveal">Vilela Advogados</h2>
+
+        <div class="sobre-paras">
+          <p class="sobre-p reveal">
+            O Vilela Advogados nasceu com um propósito claro: aproximar o direito das pessoas, com atendimento acessível, técnico e verdadeiramente humano.
+          </p>
+          <p class="sobre-p reveal">
+            Com equipe multidisciplinar e atuação em todo o Brasil, o escritório oferece consultoria e soluções jurídicas personalizadas, com foco na clareza, na ética e no compromisso com cada cliente.
+          </p>
+          <p class="sobre-p reveal">
+            No Direito Previdenciário, atuamos orientando pessoas que enfrentam situações complexas com o INSS — desde o primeiro contato até a resolução do caso.
+          </p>
+        </div>
+
+        <div class="oab-block reveal">
+          <p class="oab-item">Vinícius Vilela dos Santos — OAB/SP 298.280 | OAB/MS 19.526-A</p>
+          <p class="oab-item">Mateus Vicente Dassie Noronha — OAB/SP 322.514</p>
+          <p class="oab-item">Murilo Vilela dos Santos — OAB/SP 389.720</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════
+       SEÇÃO 8 — FOOTER
+  ══════════════════════════════════════ -->
+  <footer id="footer">
+    <div class="footer-logo">
+      <div class="logo" style="display:inline-flex;">
+        <span class="logo-vilela">VILE<span class="logo-a">L</span>A</span>
+        <span class="logo-advogados">Advogados</span>
+      </div>
+    </div>
+
+    <h2 class="footer-headline">
+      Pronto para verificar<br>seus direitos?
+    </h2>
+
+    <a href="#hero" class="btn btn-gold">Solicitar análise gratuita</a>
+
+    <hr class="footer-hr">
+
+    <div class="footer-oab">
+      <span class="footer-oab-item">Vinícius Vilela dos Santos — OAB/SP 298.280 | OAB/MS 19.526-A</span>
+      <span class="footer-oab-item">Mateus Vicente Dassie Noronha — OAB/SP 322.514</span>
+      <span class="footer-oab-item">Murilo Vilela dos Santos — OAB/SP 389.720</span>
+    </div>
+
+    <p class="footer-copy">© 2026 Vilela Advogados. Todos os direitos reservados.</p>
+  </footer>
+
+
+  <script>
+    // Scroll reveal com IntersectionObserver
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Stagger nos grupos de cards
+    document.querySelectorAll('.dor-grid .dor-card').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.12}s`;
+    });
+    document.querySelectorAll('.areas-grid .area-item').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.08}s`;
+    });
+    document.querySelectorAll('.checks .check').forEach((el, i) => {
+      el.style.transitionDelay = `${i * 0.1}s`;
+    });
+  </script>
+</body>
+</html>
