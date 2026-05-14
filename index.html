@@ -346,9 +346,9 @@
     }
 
     .dif-visual {
-      background: #0a0a0a;
+      background: #050505;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: center;
       min-height: 580px;
       position: relative;
@@ -363,35 +363,32 @@
         -45deg,
         transparent,
         transparent 38px,
-        rgba(249,180,25,0.025) 38px,
-        rgba(249,180,25,0.025) 39px
+        rgba(249,180,25,0.018) 38px,
+        rgba(249,180,25,0.018) 39px
       );
     }
 
-    .dif-visual-inner {
+    /* Gradiente no rodapé da foto para fundir com o fundo */
+    .dif-visual::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to top, #000000 0%, transparent 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .dif-photo {
       position: relative;
-      text-align: center;
-      padding: 48px;
-    }
-
-    .dif-monogram {
-      font-size: 140px;
-      font-weight: 800;
-      color: rgba(249,180,25,0.05);
-      line-height: 1;
-      letter-spacing: -0.04em;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      min-height: 580px;
+      object-fit: cover;
+      object-position: top center;
       display: block;
-      user-select: none;
-    }
-
-    .dif-monogram-sub {
-      font-size: 11px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.15);
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      margin-top: -16px;
-      display: block;
+      filter: grayscale(15%) contrast(1.05);
     }
 
     .dif-text {
@@ -521,7 +518,14 @@
     ───────────────────────────────────────── */
     #sobre { background: var(--gray-bg); }
 
-    .sobre-wrap { max-width: 700px; }
+    .sobre-inner {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 72px;
+      align-items: center;
+    }
+
+    .sobre-wrap { }
 
     .sobre-title {
       font-size: 36px;
@@ -551,6 +555,51 @@
       font-weight: 300;
       color: var(--gray-mid);
       line-height: 2;
+    }
+
+    .sobre-photo-wrap {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .sobre-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      box-shadow: inset 0 0 0 1px rgba(0,0,0,0.08);
+    }
+
+    .sobre-photo {
+      width: 100%;
+      display: block;
+      border-radius: 8px;
+      object-fit: cover;
+      object-position: top center;
+      aspect-ratio: 3/4;
+      filter: grayscale(10%) contrast(1.03);
+    }
+
+    .sobre-photo-caption {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 20px 20px 18px;
+      background: linear-gradient(to top, rgba(0,0,0,0.72) 0%, transparent 100%);
+      border-radius: 0 0 8px 8px;
+    }
+
+    .sobre-photo-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .sobre-photo-oab {
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      margin-top: 3px;
     }
 
 
@@ -599,6 +648,64 @@
 
 
     /* ─────────────────────────────────────────
+       WHATSAPP FLUTUANTE
+    ───────────────────────────────────────── */
+    .whatsapp-fab {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      background: #25D366;
+      color: var(--white);
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.45);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      animation: fab-pulse 2.5s ease-in-out infinite;
+    }
+    .whatsapp-fab:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.6);
+    }
+    .whatsapp-fab svg { width: 28px; height: 28px; fill: white; }
+
+    .fab-tooltip {
+      position: absolute;
+      right: 68px;
+      background: var(--black);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 4px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s;
+    }
+    .fab-tooltip::after {
+      content: '';
+      position: absolute;
+      right: -6px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 6px solid transparent;
+      border-left-color: var(--black);
+      border-right: none;
+    }
+    .whatsapp-fab:hover .fab-tooltip { opacity: 1; }
+
+    @keyframes fab-pulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.45); }
+      50%       { box-shadow: 0 4px 32px rgba(37,211,102,0.75); }
+    }
+
+    /* ─────────────────────────────────────────
        RESPONSIVE — MOBILE 390px
     ───────────────────────────────────────── */
     @media (max-width: 768px) {
@@ -625,6 +732,8 @@
 
       .ctam-title { font-size: 30px; }
 
+      .sobre-inner { grid-template-columns: 1fr; gap: 40px; }
+      .sobre-photo-wrap { max-width: 300px; margin: 0 auto; }
       .sobre-title { font-size: 28px; }
 
       #footer { padding: 64px 20px 40px; }
@@ -779,10 +888,7 @@
   <section id="diferenciais">
     <div class="dif-inner">
       <div class="dif-visual">
-        <div class="dif-visual-inner">
-          <span class="dif-monogram">VA</span>
-          <span class="dif-monogram-sub">Vilela Advogados</span>
-        </div>
+        <img src="dr-vinicius-sem-fundo.png" alt="Dr. Vinícius Vilela" class="dif-photo">
       </div>
 
       <div class="dif-text">
@@ -857,26 +963,36 @@
   ══════════════════════════════════════ -->
   <section id="sobre" class="section">
     <div class="container">
-      <div class="sobre-wrap">
-        <span class="label-tag reveal">Sobre nós</span>
-        <h2 class="sobre-title reveal">Vilela Advogados</h2>
+      <div class="sobre-inner">
+        <div class="sobre-wrap">
+          <span class="label-tag reveal">Sobre nós</span>
+          <h2 class="sobre-title reveal">Vilela Advogados</h2>
 
-        <div class="sobre-paras">
-          <p class="sobre-p reveal">
-            O Vilela Advogados nasceu com um propósito claro: aproximar o direito das pessoas, com atendimento acessível, técnico e verdadeiramente humano.
-          </p>
-          <p class="sobre-p reveal">
-            Com equipe multidisciplinar e atuação em todo o Brasil, o escritório oferece consultoria e soluções jurídicas personalizadas, com foco na clareza, na ética e no compromisso com cada cliente.
-          </p>
-          <p class="sobre-p reveal">
-            No Direito Previdenciário, atuamos orientando pessoas que enfrentam situações complexas com o INSS — desde o primeiro contato até a resolução do caso.
-          </p>
+          <div class="sobre-paras">
+            <p class="sobre-p reveal">
+              O Vilela Advogados nasceu com um propósito claro: aproximar o direito das pessoas, com atendimento acessível, técnico e verdadeiramente humano.
+            </p>
+            <p class="sobre-p reveal">
+              Com equipe multidisciplinar e atuação em todo o Brasil, o escritório oferece consultoria e soluções jurídicas personalizadas, com foco na clareza, na ética e no compromisso com cada cliente.
+            </p>
+            <p class="sobre-p reveal">
+              No Direito Previdenciário, atuamos orientando pessoas que enfrentam situações complexas com o INSS — desde o primeiro contato até a resolução do caso.
+            </p>
+          </div>
+
+          <div class="oab-block reveal">
+            <p class="oab-item">Vinícius Vilela dos Santos — OAB/SP 298.280 | OAB/MS 19.526-A</p>
+            <p class="oab-item">Mateus Vicente Dassie Noronha — OAB/SP 322.514</p>
+            <p class="oab-item">Murilo Vilela dos Santos — OAB/SP 389.720</p>
+          </div>
         </div>
 
-        <div class="oab-block reveal">
-          <p class="oab-item">Vinícius Vilela dos Santos — OAB/SP 298.280 | OAB/MS 19.526-A</p>
-          <p class="oab-item">Mateus Vicente Dassie Noronha — OAB/SP 322.514</p>
-          <p class="oab-item">Murilo Vilela dos Santos — OAB/SP 389.720</p>
+        <div class="sobre-photo-wrap reveal">
+          <img src="dr-vinicius.jpeg" alt="Dr. Vinícius Vilela dos Santos" class="sobre-photo">
+          <div class="sobre-photo-caption">
+            <p class="sobre-photo-name">Dr. Vinícius Vilela dos Santos</p>
+            <p class="sobre-photo-oab">OAB/SP 298.280 | OAB/MS 19.526-A</p>
+          </div>
         </div>
       </div>
     </div>
@@ -911,15 +1027,23 @@
     <p class="footer-copy">© 2026 Vilela Advogados. Todos os direitos reservados.</p>
   </footer>
 
+  <!-- Botão WhatsApp Flutuante -->
+  <a href="https://wa.me/5500000000000?text=Olá%2C%20gostaria%20de%20solicitar%20uma%20análise%20do%20meu%20caso%20previdenciário."
+     class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp">
+    <span class="fab-tooltip">Falar pelo WhatsApp</span>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
 
   <script>
-    // Scroll reveal com IntersectionObserver
+    /* ── 1. Scroll reveal ── */
     const io = new IntersectionObserver((entries) => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // Stagger nos grupos de cards
+    /* ── 2. Stagger em grupos de cards ── */
     document.querySelectorAll('.dor-grid .dor-card').forEach((el, i) => {
       el.style.transitionDelay = `${i * 0.12}s`;
     });
@@ -929,6 +1053,48 @@
     document.querySelectorAll('.checks .check').forEach((el, i) => {
       el.style.transitionDelay = `${i * 0.1}s`;
     });
+
+    /* ── 3. Contador animado no "5.0" ── */
+    const scoreEl = document.querySelector('.score-number');
+    let counted = false;
+    const scoreObs = new IntersectionObserver((entries) => {
+      if (entries[0].isIntersecting && !counted) {
+        counted = true;
+        let start = 0;
+        const end = 50; // 5.0 * 10
+        const duration = 1200;
+        const step = duration / end;
+        const timer = setInterval(() => {
+          start++;
+          scoreEl.textContent = (start / 10).toFixed(1);
+          if (start >= end) clearInterval(timer);
+        }, step);
+      }
+    }, { threshold: 0.5 });
+    if (scoreEl) scoreObs.observe(scoreEl);
+
+    /* ── 4. Máscara de telefone ── */
+    const tel = document.getElementById('whatsapp');
+    if (tel) {
+      tel.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\D/g, '').substring(0, 11);
+        if (v.length >= 7) {
+          v = v.replace(/^(\d{2})(\d{5})(\d{0,4})/, '($1) $2-$3');
+        } else if (v.length >= 3) {
+          v = v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+        } else if (v.length >= 1) {
+          v = v.replace(/^(\d{0,2})/, '($1');
+        }
+        e.target.value = v;
+      });
+    }
+
+    /* ── 5. Parallax suave no hero ── */
+    const heroGlow = document.querySelector('.hero-glow');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (heroGlow) heroGlow.style.transform = `translate(-50%, calc(-50% + ${y * 0.3}px))`;
+    }, { passive: true });
   </script>
 </body>
 </html>
