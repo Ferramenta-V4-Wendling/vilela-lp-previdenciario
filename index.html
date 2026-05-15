@@ -1091,10 +1091,14 @@
         btn.disabled = true;
         btn.textContent = 'Enviando…';
         try {
+          const fd = new FormData();
+          fd.append('nome', nome);
+          fd.append('whatsapp', whatsapp);
+          fd.append('email', email);
           await fetch('https://hook.us1.make.celonis.com/tfcta844x9g94rdskomyb7ub5gyjszpd', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nome, whatsapp, email })
+            mode: 'no-cors',
+            body: fd
           });
           leadForm.style.display = 'none';
           msg.style.display = 'block';
