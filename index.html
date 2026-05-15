@@ -761,21 +761,22 @@
       <div class="hero-form-wrap">
         <div class="hero-form">
           <p class="form-heading">Entre em contato com o escritório</p>
-          <form>
+          <form id="lead-form">
             <div class="field">
               <label for="nome">Nome completo</label>
-              <input type="text" id="nome" placeholder="Seu nome completo">
+              <input type="text" id="nome" placeholder="Seu nome completo" required>
             </div>
             <div class="field">
               <label for="whatsapp">WhatsApp</label>
-              <input type="tel" id="whatsapp" placeholder="(00) 00000-0000">
+              <input type="tel" id="whatsapp" placeholder="(00) 00000-0000" required>
             </div>
             <div class="field">
               <label for="email">E-mail</label>
               <input type="email" id="email" placeholder="seu@email.com">
             </div>
-            <button type="submit" class="btn btn-gold form-cta">Fale com o escritório</button>
+            <button type="submit" id="form-btn" class="btn btn-gold form-cta">Fale com o escritório</button>
           </form>
+          <p id="form-msg" style="display:none; text-align:center; margin-top:14px; font-size:13px; color:var(--gold);">✓ Mensagem enviada! Entraremos em contato em breve.</p>
           <p class="form-micro">Seus dados não serão compartilhados com terceiros.</p>
         </div>
       </div>
@@ -1076,7 +1077,36 @@
       });
     }
 
-    /* ── 5. Parallax suave no hero ── */
+    /* ── 5. Envio do formulário → Make webhook ── */
+    const leadForm = document.getElementById('lead-form');
+    if (leadForm) {
+      leadForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const btn  = document.getElementById('form-btn');
+        const msg  = document.getElementById('form-msg');
+        const nome     = document.getElementById('nome').value.trim();
+        const whatsapp = document.getElementById('whatsapp').value.trim();
+        const email    = document.getElementById('email').value.trim();
+        if (!nome || !whatsapp) return;
+        btn.disabled = true;
+        btn.textContent = 'Enviando…';
+        try {
+          await fetch('https://hook.us1.make.celonis.com/tfcta844x9g94rdskomyb7ub5gyjszpd', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nome, whatsapp, email })
+          });
+          leadForm.style.display = 'none';
+          msg.style.display = 'block';
+        } catch(err) {
+          btn.disabled = false;
+          btn.textContent = 'Fale com o escritório';
+          alert('Erro ao enviar. Tente novamente.');
+        }
+      });
+    }
+
+    /* ── 6. Parallax suave no hero ── */
     const heroGlow = document.querySelector('.hero-glow');
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
