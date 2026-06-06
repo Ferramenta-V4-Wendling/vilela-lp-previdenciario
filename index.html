@@ -102,21 +102,24 @@
       overflow: hidden;
     }
 
-    /* Gradiente diagonal dramático */
+    /* Imagem de fundo com overlay escuro + acento dourado */
     #hero::before {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(ellipse 900px 700px at 20% 60%, rgba(249,180,25,0.09) 0%, transparent 65%),
-        radial-gradient(ellipse 600px 500px at 75% 30%, rgba(249,180,25,0.05) 0%, transparent 60%),
-        repeating-linear-gradient(
-          180deg,
-          transparent,
-          transparent 47px,
-          rgba(255,255,255,0.018) 47px,
-          rgba(255,255,255,0.018) 48px
-        );
+        linear-gradient(105deg,
+          rgba(249,180,25,0.18) 0%,
+          rgba(249,180,25,0.06) 25%,
+          transparent 50%
+        ),
+        linear-gradient(to right,
+          rgba(0,0,0,0.93) 0%,
+          rgba(0,0,0,0.78) 45%,
+          rgba(0,0,0,0.45) 75%,
+          rgba(0,0,0,0.30) 100%
+        ),
+        url('hero-bg.jpg') center center / cover no-repeat;
       z-index: 0;
       pointer-events: none;
     }
